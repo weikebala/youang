@@ -117,7 +117,7 @@ class Role extends AdminBaseController
                 $role = new AdminRole();
                 if ($role->where('id', $param['id'])->save([
                     'role_auth' => implode(',', $param['authids']),
-                ]))
+                ]) !== false)
                 {
                     $this->success('操作成功');
                 }

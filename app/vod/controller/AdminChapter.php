@@ -82,11 +82,11 @@ class AdminChapter extends AdminBaseController
         {
 
             //验证数据
-            $validate = new AdminChapterValidate();
-            if (!$validate->check($param))
-            {
-                $this->error($validate->getError());
-            }
+//            $validate = new AdminChapterValidate();
+//            if (!$validate->check($param))
+//            {
+//                $this->error($validate->getError());
+//            }
 
             $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
 
