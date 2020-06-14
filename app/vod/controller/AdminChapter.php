@@ -90,7 +90,7 @@ class AdminChapter extends AdminBaseController
 
             $param['show_status'] = !empty($param['show_status']) ? 1 : 0;
 
-            if ($chapter->where('id', $param['id'])->save($param))
+            if ($chapter->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

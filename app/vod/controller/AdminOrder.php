@@ -40,7 +40,7 @@ class AdminOrder extends AdminBaseController
         //
         if ($this->request->isPost())
         {
-            if ($order->where('id', $param['id'])->save($param))
+            if ($order->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

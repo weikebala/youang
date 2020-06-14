@@ -95,7 +95,7 @@ class AdminCourseVideo extends AdminBaseController
                 $this->error($validate->getError());
             }
 
-            if ($courseVideo->where('id', $param['id'])->save($param))
+            if ($courseVideo->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

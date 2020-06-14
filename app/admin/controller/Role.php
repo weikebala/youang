@@ -66,7 +66,7 @@ class Role extends AdminBaseController
 
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
-            if ($role->where('id', $param['id'])->save($param))
+            if ($role->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

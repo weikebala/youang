@@ -41,7 +41,7 @@ class AdminComment extends AdminBaseController
         //
         if ($this->request->isPost())
         {
-            if ($comment->where('id', $param['id'])->save($param))
+            if ($comment->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

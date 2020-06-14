@@ -121,7 +121,7 @@ class Administrator extends AdminBaseController
             {
                 unset($param['password']);
             }
-            if ($User->where('id', $param['id'])->save($param))
+            if ($User->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }
@@ -190,7 +190,7 @@ class Administrator extends AdminBaseController
             {
                 unset($param['password']);
             }
-            if ($User->where('id', $param['id'])->save($param))
+            if ($User->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

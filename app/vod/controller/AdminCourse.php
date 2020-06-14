@@ -94,7 +94,7 @@ class AdminCourse extends AdminBaseController
 
             $param['show_status'] = isset($param['show_status']) ? $param['show_status'] : 0;
 
-            if ($course->where('id', $param['id'])->save($param))
+            if ($course->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

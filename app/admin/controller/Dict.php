@@ -63,7 +63,7 @@ class Dict extends AdminBaseController
 
             $param['show_status'] = isset($param['show_status']) ? 1 : 0;
 
-            if ($dict->where('id', $param['id'])->save($param))
+            if ($dict->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

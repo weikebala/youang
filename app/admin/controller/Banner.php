@@ -82,7 +82,7 @@ class Banner extends AdminBaseController
 
             $param['show_status'] = isset($param['show_status']) ? 1 : 0;
 
-            if ($banner->where('id', $param['id'])->save($param))
+            if ($banner->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

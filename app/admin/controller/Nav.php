@@ -66,7 +66,7 @@ class Nav extends AdminBaseController
 
         if ($this->request->isPost())
         {
-            if ($nav->where('id', $param['id'])->save($param))
+            if ($nav->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }

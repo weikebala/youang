@@ -61,7 +61,7 @@ class AdminCourseCategory extends AdminBaseController
 
         if ($this->request->isPost())
         {
-            if ($category->where('id', $param['id'])->save($param))
+            if ($category->where('id', $param['id'])->save($param) !== false)
             {
                 $this->success('操作成功');
             }
