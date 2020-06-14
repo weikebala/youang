@@ -1,0 +1,43 @@
+.container-body .breadcrumb {
+    background-color: #f4f4f4;
+}
+
+.article-title span {
+    color: #6c757d !important;
+    padding-right: 15px;
+}
+
+.article-detail img {
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.article-detail p {
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+
+.recommend-article-img-top{
+	width: 100%;
+}
+.comment-list-info img{
+
+	width: 64px;
+	height: 64px;
+}
+.reply{
+	display: none;
+}
+
+#commentEditorContent div{
+    min-height: 120px;
+}
+
+
+.relation-course img{
+    width: 100%;
+}
+

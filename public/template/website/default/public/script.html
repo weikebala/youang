@@ -1,0 +1,117 @@
+<!-- ------公共js start------- -->
+<script src="__STATIC__/js/jquery.min.js"></script>
+<script src="__STATIC__/js/popper.min.js"></script>
+<script src="__STATIC__/js/bootstrap.min.js"></script>
+<script src="__STATIC__/js/wangEditor.min.js"></script>
+<script src="__STATIC__/js/adminlte.min.js"></script>
+<!-- ------公共js end------- -->
+<!-- ------模板js start------- -->
+<script src="__TEMPSTATIC__/js/modal_dialog.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.pagination').addClass("pagination-sm m-0");
+    $('.pagination li').addClass("page-item");
+    $('.pagination li span').addClass("page-link");
+    $('.pagination li a').addClass("page-link");
+})
+
+
+function success(message = 'success', timeout = 2000) {
+
+
+    $modal({
+        type: 'message',
+        icon: 'success',
+        timeout: timeout,
+        content: message,
+        center: false,
+        top: 100,
+        transition: 300,
+        closable: true,
+    })
+}
+
+
+function error(message = 'error', timeout = 2000) {
+
+    $modal({
+
+        type: 'message',
+        icon: 'error',
+        content: '验证码发送成功,请注意查收',
+        content: message,
+        center: false,
+        top: 100,
+        transition: 300,
+        closable: true,
+    })
+}
+
+function CheckMobile(mobile) {
+
+    if (!mobile) {
+        return 0;
+    }
+    var reg = /[a-zA-Z0-9]{1,10}@[a-zA-Z0-9]{1,5}\.[a-zA-Z0-9]{1,5}|^1[3578]\d{9}$|^[\u4e00-\u9fa5]{2,4}$/;
+    if (!reg.test(mobile)) {
+        return 2;
+    } else {
+        return mobile;
+    }
+
+}
+
+$(".rounded-lg").hover(function() {
+    $(this).toggleClass("imgcolor");
+});
+
+
+//播放器快捷键
+$(window).keydown(function(e) {
+    e == e || Window.event;
+    var Code = e.keyCode || e.which || e.charCode;
+    if (Code == "32") { //空格键(暂停，播放)
+        e.preventDefault();
+        var videoplay = $('input[name="videoplay"]').val(); //定义一个隐藏域 来区分播放状态
+        if (videoplay == 0) {
+            player.pause();
+            $('input[name="videoplay"]').val(1);
+        } else {
+            player.play();
+            $('input[name="videoplay"]').val(0);
+        }
+    } else if (Code == "37") { //左箭头（后退）
+        var videotimes = player.getDuration();
+        var playnum = player.getCurrentTime();
+        playnum = parseInt(playnum - 10);
+        if (playnum <= (videotimes - 30)) {
+            player.seek(playnum);
+        }
+    } else if (Code == "39") { //right（快进）
+        var videotimes = player.getDuration();
+        var playnum = player.getCurrentTime();
+        playnum = parseInt(playnum + 10);
+        if (playnum <= (videotimes + 30)) {
+            player.seek(playnum);
+        }
+    } else if (Code == "38") { //up(音量+)
+        e.preventDefault();
+        var nowvioce = player.getVolume();
+        if (nowvioce >= 1) {
+            player.setVolume(1);
+        } else {
+            player.setVolume(nowvioce + 0.05);
+        }
+    } else if (Code == "40") { //down（音量-）
+        e.preventDefault();
+        var nowvioce = player.getVolume();
+        if (nowvioce <= 0) {
+            player.setVolume(0);
+        } else {
+            player.setVolume(nowvioce - 0.05);
+        }
+    }
+});
+
+
+</script>

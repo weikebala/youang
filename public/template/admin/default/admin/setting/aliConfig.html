@@ -1,0 +1,129 @@
+<div class="content-wrapper pre-scrollable">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid p-2">
+            <div class="commonality-card bg-white p-4">
+                <ul class="nav nav-pills">
+                    {volist name="settinglist" id="vo" key="key"}
+                    <li class="nav-item">
+                        <a class="nav-link {:input('param.tplType') == $vo.category_name  ? 'active':''}" href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/{$vo.category_name | default='baseConfig'}">{$vo.title}</a>
+                    </li>
+                    {/volist}
+                </ul>
+                <div class="tab-content">
+                    <form class="p-3" enctype="multipart/form-data" action="{$Request.root}/{$Request.controller}/{$Request.action}/type/{$tpl}" method="post">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里VodKey</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliPlayerKey" value="{$detail.aliPlayerKey.content}" placeholder="VodKey">
+                            </div>
+                            <small>
+                                <a href="https://help.aliyun.com/document_detail/123465.htm" class="text-warning" target="_blank">
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Help
+                                </a>
+                            </small>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里VodSecret</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliPlayerSecret" value="{$detail.aliPlayerSecret.content}" placeholder="VodSecret">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里VodRegionId</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliPlayerRegionId" value="{$detail.aliPlayerRegionId.content}" placeholder="请输入RegionId">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里ossKey</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliossKey" value="{$detail.aliossKey.content}" placeholder="请输入阿里ossKey">
+                            </div>
+                            <small>
+                                <a href="https://help.aliyun.com/document_detail/32101.html" class="text-warning" target="_blank">
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Help
+                                </a>
+                            </small>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里ossSecret</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="aliossSecret" value="{$detail.aliossSecret.content}" placeholder="请输入阿里ossSecret">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里ossEndpoint</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="ossEndpoint" value="{$detail.ossEndpoint.content}" placeholder="请输入阿里ossEndpoint">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里ossBucket</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="ossBucket" value="{$detail.ossBucket.content}" placeholder="请输入阿里ossBucket">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里大于Key</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="smsKey" value="{:hideStr($detail.smsKey.content)}" placeholder="请输入短信Key">
+                            </div>
+                            <small>
+                                <a href="https://help.aliyun.com/document_detail/112186.html" class="text-warning" target="_blank">
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Help
+                                </a>
+                                </small>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里大于Secret</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="smsSecret" value="{:hideStr($detail.smsSecret.content)}" placeholder="请输入短信Secret">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">阿里大于签名</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="smsSign" value="{$detail.smsSign.content}" placeholder="请输入阿里大于签名">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">注册短信模板</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="smsLoginTemplateCode" value="{$detail.smsLoginTemplateCode.content}" placeholder="请输入注册短信模板">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">忘记密码短信模板</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="smsForgetTemplateCode" value="{$detail.smsForgetTemplateCode.content}" placeholder="请输入忘记密码短信模板">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                                <button type="submit" class="btn btn-info">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

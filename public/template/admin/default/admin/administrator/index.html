@@ -1,0 +1,85 @@
+<div class="content-wrapper pre-scrollable">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    {:checkAuth('add')}
+                    <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
+                        刷新
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                    <a href="{$Request.root}/{$Request.controller}/{$Request.action}" class="btn btn-primary btn-sm" title="重置">
+                        重置搜索
+                        <i class="fa fa-repeat"></i>
+                    </a>
+                    <div class="card-tools">
+                        <form>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control mr-2" name="search_time" value="123213123" placeholder="请输入时间" id="reservation">
+                                <input type="text" name="keywords" class="form-control float-right" placeholder="请输入关键字">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">用户名</th>
+                                <th style="width: 20px">头像</th>
+                                <th style="width: 10px">手机号</th>
+                                <th style="width: 10px">所属角色组</th>
+                                <th style="width: 10px">状态</th>
+                                <th style="width: 10px">最后登录时间</th>
+                                <th style="width: 40px">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="userlist" id="vo"}
+                            <tr>
+                                <td>{$vo.nickname}</td>
+                                <td> <img src="{$vo.avatar_url ? getUrlPath($vo.avatar_url) :'__STATIC__/img/user3-128x128.jpg'}" width="30" height="30"></td>
+                                <td>{$vo.mobile}</td>
+                                <td>{$vo.role_name ? $vo.role_name : '未选择'}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary ">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
+                                <td>{$vo.last_login_time}</td>
+                                <td>
+                                    {if $vo.role_id == 1}
+                                    {else /}
+                                    {:checkAuth('edit',$vo.id)}
+                                    {:checkAuth('delete',$vo.id)}
+                                    {/if}
+                                </td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer clearfix">
+                    {$page|raw}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

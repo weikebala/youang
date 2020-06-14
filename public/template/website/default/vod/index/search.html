@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>首页 {$site_info.site_name|default='eduYouke在线教育点播系统'}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default='eduYouke在线教育点播系统'}" />
+    <meta name="description" content="{$site_info.site_seo_description|default='eduYouke在线教育点播系统'}">
+    {include file='../public/header' /}
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='../public/nav' /}
+        <div class="content-wrapper">
+            <div class="bg-white">
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <form action="/index/search">
+                                <div class="mb-4 input-group input-group-lg mt-4">
+                                    <input type="text" class="form-control bg-light" name="keywords" value="{:input('param.keywords')}" placeholder="请输入您要搜索的关键字">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info btn-lg" type="submit">搜索</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="mt-2">
+                            <p class="p-2">
+                                <strong class="text-muted">共 <span class="text-info">{$count}</span>搜索条结果</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {volist name="list" id="vo" key="k"}
+                        <div class="col-md-3">
+                            <div class="card card-widget widget-user wider">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{:getUrlPath($vo.cource_image_url)}') center center;">
+                                    </div>
+                                </a>
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        {if $vo.sell_status}
+                                        <span class="badge badge-danger">
+                                            ￥{$vo.sell_price}
+                                        </span>
+                                        {else /}
+                                        <span class="badge badge-info">
+                                            免费
+                                        </span>
+                                        {/if}
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="text-black-50 ml-2"> <small>总有刁民想害朕</small></span>
+                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> 1200</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='../public/footer' /}
+    </div>
+    {include file='../public/script' /}
+</body>
+
+</html>

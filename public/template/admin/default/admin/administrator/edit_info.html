@@ -1,0 +1,48 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid bg-white h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/editInfoPost">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">昵称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="nickname" value="{$editData.nickname}" placeholder="请输入管理员昵称">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" placeholder="不填写默认不修改">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员手机号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="mobile" value="{$editData.mobile}" placeholder="请输入管理员手机号">
+                </div>
+            </div>
+            <div class="form-group" class="display-none">
+                <input type="hidden" name="id" value="{$editData.id}">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">管理员头像</label>
+                <div class="col-sm-10">
+                    <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="image/*" />
+                    <input type="hidden" name="avatar_url" id="image_url" value="{$editData.avatar_url}">
+                    <div id="preview_image">
+                        <img src="{$editData.avatar_url ? getUrlPath($editData.avatar_url) :'__STATIC__/img/user3-128x128.jpg'}">
+                    </div>
+                    <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">图片上传
+                    </label>
+                </div>
+            </div>
+    </div>
+    <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+    </button>
+    </form>
+</div>
+</div>
+{include file='../public/script' /}

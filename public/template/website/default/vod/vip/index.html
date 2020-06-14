@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>首页 {$site_info.site_name|default='eduYouke在线教育点播系统'}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default='eduYouke在线教育点播系统'}" />
+    <meta name="description" content="{$site_info.site_seo_description|default='eduYouke在线教育点播系统'}">
+    {include file='../public/header' /}
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='../public/nav' /}
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md-12 mt-4">
+                            <p>
+                                <h2 class="text-muted">
+                                    <img alt="35x35" src="__STATIC__/img/vip.png" width="35" height="35">
+                                    会员中心
+                                </h2>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+                        
+                        {volist name="vip" id="vo"}
+                        <div class="col-md-4 col-sm-6 col-12 mt-4">
+                            <div class="card text-center p-2">
+                                <h3 class="mt-4"><strong>{$vo.title}</strong></h3>
+                                <br>
+                                <h1><strong class="text-warning">{$vo.content}</strong></h1>
+                                <br>
+                                <p>
+                                    <span class="text-muted font-weight-bold">全部课程免费 <i class="fa fa-check-circle text-success" aria-hidden="true"></i></span>
+                                </p>
+                                <p>
+                                    <span class="text-muted font-weight-bold">一对一详细讲解 <i class="fa fa-check-circle text-success" aria-hidden="true"></i></span>
+                                </p>
+                                <p>
+                                    <span class="text-muted font-weight-bold">专属学习群 <i class="fa fa-check-circle text-success" aria-hidden="true"></i></span>
+                                </p>
+                                <p>
+                                    <span class="text-muted font-weight-bold">vip尊贵标志(#^.^#) <i class="fa fa-check-circle text-success" aria-hidden="true"></i></span>
+                                </p>
+                                <br>
+                                <p>
+                                    <small class="text-muted">
+                                        居家旅行必备会员
+                                    </small>
+                                </p>
+                                <p>
+                                    <a href="{:url('/order/createOrder',['id'=>$vo['id'],'type'=>'vip'])}" class="btn btn-outline-danger btn-sm">立即购买</a>
+                                </p>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {include file='../public/footer' /}
+    </div>
+    {include file='../public/script' /}
+</body>
+
+</html>

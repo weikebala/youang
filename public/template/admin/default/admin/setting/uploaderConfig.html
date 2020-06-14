@@ -1,0 +1,76 @@
+<div class="content-wrapper pre-scrollable">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid p-2">
+            <div class="commonality-card bg-white p-4">
+                <ul class="nav nav-pills">
+                    {volist name="settinglist" id="vo" key="key"}
+                    <li class="nav-item">
+                        <a class="nav-link {:input('param.tplType') == $vo.category_name  ? 'active':''}" href="{$Request.root}/{$Request.controller}/{$Request.action}/tplType/{$vo.category_name | default='baseConfig'}">{$vo.title}</a>
+                    </li>
+                    {/volist}
+                </ul>
+                <div class="tab-content">
+                    <form class="p-3" enctype="multipart/form-data" action="{$Request.root}/{$Request.controller}/{$Request.action}/type/{$tpl}" method="post">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">图片上传配置</label>
+                            <div class="col-sm-5">
+                                <div class="icheck-success d-inline">
+                                    <input type="radio" name="imageUploader" value="0" {$detail.imageUploader.content==0 ? 'checked' :''} id="is{$detail.imageUploader.category_name}">
+                                    <label for="is{$detail.imageUploader.category_name}">
+                                        本地上传
+                                    </label>
+                                </div>
+                                <div class="icheck-success d-inline">
+                                    <input {$detail.imageUploader.content==1 ? 'checked' :''} type="radio" name="imageUploader" value="1" id="not{$detail.imageUploader.category_name}">
+                                    <label for="not{$detail.imageUploader.category_name}">
+                                        阿里云OSS
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">视频上传配置</label>
+                            <div class="col-sm-5">
+                                <div class="icheck-success d-inline">
+                                    <input type="radio" name="videoUploader" value="0" {$detail.videoUploader.content==0 ? 'checked' :''} id="is{$detail.videoUploader.category_name}">
+                                    <label for="is{$detail.videoUploader.category_name}">
+                                        本地上传
+                                    </label>
+                                </div>
+                                <div class="icheck-success d-inline">
+                                    <input {$detail.videoUploader.content==1 ? 'checked' :''} type="radio" name="videoUploader" value="1" id="not{$detail.videoUploader.category_name}">
+                                    <label for="not{$detail.videoUploader.category_name}">
+                                        阿里云Vod
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-info">保存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid bg-white h-100 table-responsive">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/addPost">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">菜单</label>
+                <div class="col-sm-10">
+                    <div class="form-group clearfix">
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="menuType" value="1" checked id="ismenu">
+                            <label for="ismenu">
+                                仅作为菜单
+                            </label>
+                        </div>
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="menuType" value="2" id="notmenu">
+                            <label for="notmenu">
+                                可访问菜单
+                            </label>
+                        </div>
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="menuType" value="3" id="isAction">
+                            <label for="isAction">
+                                操作权限
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">父级</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" name="parent_id">
+                            <option value="0">无</option>
+                            {volist name="menulist" id="vo"}
+                            <option value="{$vo.id}">{$vo.showName}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" placeholder="请输入名称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">路径</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="url" placeholder="App/Controller/Action">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">图标</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="icon" placeholder="cogs">
+                    <small id="emailHelp" class="form-text text-muted"><a href="http://www.fontawesome.com.cn/faicons/" target="_blank">获取图标</a></small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">排序</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="sort" placeholder="默认为0">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">备注</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="remark" placeholder="请输入备注[选填]">
+                </div>
+            </div>
+            <div class="form-group row" id="rbacAction" style="display: none;">
+                <label class="col-sm-2 col-form-label">权限细化</label>
+                <div class="col-sm-10">
+
+                    <div class="icheck-success d-inline">
+                        <input type="checkbox" name="rbac_add" id="rbacAdd" checked>
+                        <label for="rbacAdd">
+                            增加
+                        </label>
+                    </div>
+                    <div class="icheck-success d-inline">
+                        <input type="checkbox" name="rbac_del" id="rbacDel" checked>
+                        <label for="rbacDel">
+                            删除
+                        </label>
+                    </div>
+                    <div class="icheck-success d-inline">
+                        <input type="checkbox" name="rbac_edit" id="rbacEdit" checked>
+                        <label for="rbacEdit">
+                            修改
+                        </label>
+                    </div>
+                    <small class="form-text text-muted">对应后台控制器:{add/edit/del/info}</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">显示</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="icheck-success d-inline">
+                            <input type="checkbox" name="show_status" checked id="showStatus">
+                            <label for="showStatus">
+                                是否可用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+    </button>
+    </form>
+</div>
+</div>
+{include file='../public/script' /}
+<script src="__ADMINSTATIC__/js/validate/menuValidate.js"></script>
+
+<script type="text/javascript">
+$("#notmenu").click(function() {
+    $("#rbacAction").show();
+});
+
+$("#ismenu,#isAction").click(function() {
+    $("#rbacAction").hide();
+});
+
+</script>

@@ -1,0 +1,79 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<link rel="stylesheet" type="text/css" href="__STATIC__/common/select2/css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/common/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<div class="container-fluid bg-white h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/addPostCategory">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所属分类</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" name="parent_id">
+                            <option value="">无</option>
+                            {volist name="category" id="vo"}
+                            <option value="{$vo.id}">{$vo.showName}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">分类名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" placeholder="请输入分类名称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO标题</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoTitle" placeholder="请输入SEO标题">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO关键字</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoKeywords" placeholder="请输入SEO关键字">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO描述</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoDescription" placeholder="请输入SEO描述">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">排序</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="sort" placeholder="请输入排序">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">备注</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="remark" placeholder="请输入备注">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">显示</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="icheck-success d-inline">
+                            <input type="checkbox" name="show_status" value="1" checked id="showStatus">
+                            <label for="showStatus">
+                                是否可用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+        
+        </form>
+    </div>
+</div>
+{include file='../public/script' /}
+<script src="__STATIC__/common/select2/js/select2.full.min.js"></script>
+<script src="__ADMINSTATIC__/js/validate/categoryValidate.js"></script>

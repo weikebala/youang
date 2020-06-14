@@ -1,0 +1,25 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid bg-white h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">订单ID</label>
+                <div class="col-sm-10">
+                    {$editData.order_no}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">订单价格</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="{$editData.amount_total}" name="amount_total" placeholder="修改订单价格">
+                </div>
+            </div>
+    </div>
+    <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+    </button>
+    </form>
+</div>
+</div>
+{include file='../public/script' /}

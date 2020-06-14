@@ -1,0 +1,65 @@
+/*.user-nav a{
+	font-size: 16px;
+	font-weight: 600;
+}*/
+.user-nav a:hover {
+    color: #007bff;
+}
+
+.user-nav .active {
+    color: #fff;
+    background: rgba(240, 20, 20, .8);
+    border-radius: 8px;
+}
+
+.card-img-top {
+    width: 50%;
+}
+.container-fluid .form-control {
+    width: 100% !important;
+}
+.user-info .form-control {
+
+    width: 40%;
+}
+
+
+@media (max-width: 768px) {
+
+    .card-img-top {
+        width: 50%;
+    }
+
+    .media-body .text-muted {
+        display: none;
+    }
+
+.user-info .form-control {
+
+    width: 100%;
+}
+
+}
+
+.user-info {
+    padding: 20px;
+}
+
+
+input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/*modal 样式更改*/
+.modal-header{
+    border: none;
+}
+.modal-content{
+    border-radius: 15px;
+}

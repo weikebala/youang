@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$coursinfo.title|default='评论页'}</title>
+    <meta name="keywords" content="{$site_info.seoKeywords|default='eduYouke在线教育点播系统'}" />
+    <meta name="description" content="{$coursinfo.description|default='eduYouke在线教育点播系统'}">
+    {include file='../public/header' /}
+    <link href="__TEMPSTATIC__/css/course.css" rel="stylesheet">
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='../public/nav' /}
+        <div class="content-wrapper">
+            <div class="course-info" style="background: url('{:getUrlPath($coursinfo.cource_image_url)}') center center;">
+                <div class="course-detail">
+                    <div class="container">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mt-2">
+                                {volist name="breadcrumb" id="vo" key="k"}
+                                <li class="breadcrumb-item"><a href="{:url('index/list',['list_id'=>$vo['id']])}">{$vo.title}</a></li>
+                                {/volist}
+                                <li class="breadcrumb-item active" aria-current="page"><a href="{:url('/course/index',['id'=>$coursinfo['id']])}">{$coursinfo.title}</a></li>
+                            </ol>
+                        </nav>
+                        <div>
+                            <h1 class="p-2 text-white">{$coursinfo.title}</h1>
+                        </div>
+                        <div class="mt-4">
+                            <div class="text-white">
+                                <p>
+                                    <span class="p-2">观看人数 : {$coursinfo.views}</span>
+                                    <span class="p-2">学习人数 : {$coursinfo.study_num}</span>
+                                    <span class="p-2">难度 : {switch $coursinfo.level_status}
+                                        {case 1}初级
+                                        {/case}
+                                        {case 2}中级
+                                        {/case}
+                                        {default /}高级
+                                        {/switch}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white course-nav shadow-lg rounded">
+                <div class="container">
+                    <nav class="nav">
+                        <a class="nav-link text-muted" href="{:url('/course/index',['id'=>$coursinfo['id']])}">课程介绍</a>
+                        <a class="nav-link text-muted" href="{:url('/course/chapter',['id'=>$coursinfo['id']])}">课程章节</a>
+                        <a class="nav-link active text-muted" href="{:url('/course/comment',['id'=>$coursinfo['id']])}">课程评论</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12">
+                            <div class="mt-3">
+                                <div>
+                                    {volist name="commentlist" id="vo"}
+                                    <div class="mt-3 bg-white p-3 card">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <a href="{:url('user/user/centor',['user_id'=>$vo.user_id])}">
+                                                    <img class="img-circle img-bordered-sm" src="
+                                                {$vo.avatar_url ? getUrlPath($vo.avatar_url) :'__STATIC__/img/user4-128x128.jpg'}" alt="user image">
+                                                </a>
+                                                <span class="username">
+                                                    <a href="{:url('user/user/centor',['user_id'=>$vo.user_id])}">{$vo.nickname}</a>
+                                                </span>
+                                                <span class="description">{$vo.create_time}</span>
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <p>
+                                                {$vo.content}
+                                            </p>
+                                            <p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {/volist}
+                                    <div class="mt-3 bg-white p-3 card">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm" src="{:getUserAvatarUrl() ? getUserAvatarUrl() :'__STATIC__/img/user4-128x128.jpg'}" alt="user image">
+                                                <span class="username mt-2">
+                                                    {if $Request.session.UserInfo}
+                                                    <a href="{:url('user/user/centor',['user_id'=>getUserInfoData()])}">{:getUserInfoData(0,'nickname')}</a>
+                                                    {else /}
+                                                    <a href="javascript:;">未登录</a>
+                                                    {/if}
+                                                </span>
+                                                <!-- <span class="description">输出你的看法吧~</span> -->
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <textarea class="form-control" id="introduce" name="introduce" rows="3"></textarea>
+                                            <a href="{:url('/comment/addComment',['source_id'=>$coursinfo.id])}" class="float-right btn-primary btn-sm mt-2" onclick="addComment('course')" id="addComment">
+                                                发布
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 分页start -->
+                                <div class="mb-2">
+                                    {$page|raw}
+                                </div>
+                                <!-- 分页end -->
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="card mt-3">
+                                <img src="{:getUrlPath($coursinfo.cource_image_url)}" class="card-img-top" alt="...">
+                                <div class="p-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-body mb-2">课程简介</h5>
+                                        <p class="card-text text-black-50 mb-2">{$coursinfo.description}</p>
+                                    </div>
+                                    <div class="card-body">
+                                        {if $buystatus}
+                                        <a href="{:url('/course/chapter',['id'=>$coursinfo['id']])}" class="btn btn-info btn-sm btn-block">立即学习</a>
+                                        {else /}
+                                        {if $coursinfo.sell_status}
+                                        <a href="{:url('/order/createOrder',['id'=>$coursinfo['id'],'type'=>'course'])}" class="btn btn-danger btn-sm btn-block">￥{$coursinfo.sell_price} 立即购买</a>
+                                        {else /}
+                                        <a href="{:url('/course/chapter',['id'=>$coursinfo['id']])}" class="btn btn-info btn-sm btn-block">立即学习</a>
+                                        {/if}
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">推荐课程</h3>
+                                </div>
+                                <div class="card-body p-0">
+                                    <ul class="products-list product-list-in-card pl-2 pr-2">
+                                        {volist name="recommend" id="vo"}
+                                        <div class="attachment-block mt-2 clearfix">
+                                            <img class="attachment-img" src="{:getUrlPath($vo.cource_image_url)}" alt="{$vo.title}">
+                                            <div class="attachment-pushed product-info">
+                                                <a href="{:url('/course/index',['id'=>$vo['course_id']])}" class="product-description mt-1">
+                                                    <strong>
+                                                        {$vo.course_title}
+                                                    </strong>
+                                                </a>
+                                                <div class="attachment-text">
+                                                    <small class="product-description mt-1">{$vo.description}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/volist}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='../public/footer' /}
+    </div>
+    {include file='../public/script' /}
+    <script src="__TEMPSTATIC__/js/comment.js"></script>
+</body>
+
+</html>

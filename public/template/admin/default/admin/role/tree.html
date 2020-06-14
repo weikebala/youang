@@ -1,0 +1,55 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <div class="m-auto">
+            <form class="layui-form" action="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选择</label>
+                    <div class="layui-input-block">
+                        <div id="LAY-auth-tree-index"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{include file='../public/script' /}
+<script type="text/javascript">
+layui.config({
+    base: '__STATIC__/common/layui/layui_exts/',
+}).extend({
+    authtree: 'authtree',
+});
+</script>
+<script type="text/javascript">
+layui.use(['jquery', 'authtree', 'form', 'layer'], function() {
+    var $ = layui.jquery;
+    var authtree = layui.authtree;
+    var form = layui.form;
+    var layer = layui.layer;
+    // 一般来说，权限数据是异步传递过来的
+    $.ajax({
+        url: "{:url('/admin/role/getAuthTree',['id'=>$id])}",
+        dataType: 'json',
+        success: function(data) {
+
+            var trees = data.data.trees;
+            // 如果后台返回的不是树结构，请使用 authtree.listConvert 转换
+            authtree.render('#LAY-auth-tree-index', trees, {
+                inputname: 'authids[]',
+                layfilter: 'lay-check-auth',
+                autowidth: true,
+            });
+
+        }
+    });
+
+});
+</script>

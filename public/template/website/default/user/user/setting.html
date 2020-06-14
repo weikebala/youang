@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$userinfo.nickname|default=''}的个人中心</title>
+    <meta name="keywords" content="{$site_info.seoKeywords|default=''}" />
+    <meta name="description" content="{$site_info.seoDescription|default=''}">
+    {include file='../public/header' /}
+    <link href="__STATIC__/css/jquery-confirm.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='../public/nav' /}
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 mt-3">
+                            <!-- Profile Image -->
+                            <div class="card card-primary card-outline">
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        {if $userinfo.myself == 1}
+                                        <div id="defaultUpload">
+                                            <a href="javascript:void(0);">
+                                                <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                            </a>
+                                        </div>
+                                        <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','defaultUpload','img_label')" accept="image/*" />
+                                        <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">头像上传</label>
+                                        {else /}
+                                        <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                        {/if}
+                                    </div>
+                                    <h3 class="profile-username text-center">{$userinfo.nickname}</h3>
+                                    <p class="text-muted text-center">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</p>
+                                    <ul class="list-group list-group-unbordered mb-3">
+                                        <li class="list-group-item">
+                                            <b>经验</b> <a class="float-right">{$userinfo.empirical}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 mt-3">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item"><a class="nav-link" href="{:url('/user/user/centor',['user_id'=>$userinfo.id ])}">足迹</a></li>
+                                        {if $userinfo.myself == 1}
+                                        <li class="nav-item"><a class="nav-link " href="{:url('/user/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
+                                        <li class="nav-item"><a class="nav-link active" href="{:url('/user/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
+                                        {else /}
+                                        {/if}
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="settings">
+                                            <form class="form-horizontal" action="" method="post">
+                                                <div class="form-group row">
+                                                    <label for="nickName" class="col-sm-2 col-form-label">昵称</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="nickname" class="form-control" value="{$userinfo.nickname}" id="nickName" placeholder="{$userinfo.nickname}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="Mobile" class="col-sm-2 col-form-label">手机号</label>
+                                                    <div class="col-sm-10">
+                                                        {if $userinfo.mobile}
+                                                        <strong>{$userinfo.mobile}</strong>
+                                                        <a href="{:url('user/user/updateMobile')}" class="badge badge-danger" id="bandMobile"> 更换手机号</a>
+                                                        {else /}
+                                                        <a href="{:url('user/user/updateMobile')}" class="badge badge-danger" id="bandMobile"> 绑定手机号</a>
+                                                        {/if}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="sex" class="col-sm-2 col-form-label">性别</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="form-group">
+                                                            <select class="custom-select" name="sex">
+                                                                <option {$userinfo.sex==0 ? 'selected' :''} value="0">保密</option>
+                                                                <option {$userinfo.sex==1 ? 'selected' :''} value="1">男</option>
+                                                                <option {$userinfo.sex==2 ? 'selected' :''} value="2">女</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="password" class="col-sm-2 col-form-label">密码</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" name="password" class="form-control" id="password" placeholder="不填写不修改">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="introduce" class="col-sm-2 col-form-label">简介</label>
+                                                    <div class="col-sm-10">
+                                                        <textarea class="form-control" name="introduce" rows="3">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <a href="{:url('/user/user/setting')}" class="btn btn-primary" id="userSetting">保存</a>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div id="bandMobileForm" style="display: none;">
+                                                <div id="sms-login">
+                                                    <div class="form-group">
+                                                        <label><strong class="text-black-50">请输入手机号码</strong></label>
+                                                        <input type="text" name="mobile" class="form-control mobile">
+                                                    </div>
+                                                    {:token_field()}
+                                                    <div class="form-group">
+                                                        <label><strong class="text-black-50">请输入验证码</strong></label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" name="smscode" class="form-control smscode">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="basic-addon" onclick="sendSms()">获取验证码
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='../public/footer' /}
+    </div>
+    {include file='../public/script' /}
+    <script src="__STATIC__/js/jquery-confirm.min.js"></script>
+    <script src="__TEMPSTATIC__/js/avatar.js"></script>
+    <script src="__TEMPSTATIC__/js/login.js"></script>
+    <script src="__TEMPSTATIC__/js/setting.js"></script>
+</body>
+
+</html>

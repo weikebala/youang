@@ -1,0 +1,66 @@
+{__NOLAYOUT__}
+<html>
+
+<head>
+    <title>管理后台登录 {$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}" />
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    {include file='../public/header' /}
+    <!-- {load href="/static/admin/detault/css/login.css" /} -->
+    <style type="text/css">
+    body {
+        background-image: url("/static/img/adminbg.png");
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .login {
+        top: 150px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container container-body">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 mt-4 login card">
+                <div class="login media bg-white" id="login">
+                    <div class="align-self-center mx-auto">
+                        <div class="text-with-hr mt-4">
+                            <strong>后台登录</strong>
+                        </div>
+                        <form class="m-auto" id="content" action="{$Request.root}/{$Request.controller}/doLogin">
+                            <div id="nickname-login">
+                                <div class="form-group">
+                                    <label><strong class="text-black-50">用户名</strong></label>
+                                    <input type="text" name="username" class="form-control username">
+                                </div>
+                                <div class="form-group">
+                                    <label><strong class="text-black-50">请输入密码</strong></label>
+                                    <input type="password" name="password" class="form-control password">
+                                </div>
+                                <div class="form-group">
+                                    <strong class="text-black-50 ">请输入验证码</strong>
+                                    <div class="input-group mt-2 mb-3">
+                                        <input type="text" name="verifycode" class="form-control verifycode" aria-describedby="basic-addon">
+                                        {:token_field()}
+                                        <div class="input-group-append" style="height: 35px;">
+                                            {:captcha_img()}
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{:url('admin/login/doLogin')}" id="formLogin" onclick="formLogin()" class="btn btn-primary btn-block mt-4 mb-4">登录</a>
+                            </div>
+                        </form>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{include file='../public/script' /}
+</script>

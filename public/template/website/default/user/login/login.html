@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$site_info.seoTitle|default='eduYouke在线教育点播系统'}</title>
+    <meta name="keywords" content="{$site_info.seoKeywords|default=''}" />
+    <meta name="description" content="{$site_info.seoDescription|default=''}">
+    {include file='../public/header' /}
+    <link href="__TEMPSTATIC__/css/login.css" rel="stylesheet">
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='../public/nav' /}
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-auto mt-4 login" id="login-image">
+                            <div class="login-img">
+                                <img src="{$loginImage ? getUrlPath($loginImage):'__TEMPSTATIC__/img/loginLeft.jpg'} ">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-auto mt-4 mb-4 login">
+                            <div class="login media bg-white">
+                                <div class="align-self-center mx-auto">
+                                    <div class="text-with-hr mt-4">
+                                        <span><strong>欢迎登录</strong></span>
+                                    </div>
+                                    <form id="content">
+                                        <div id="nickname-login">
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">手机号/用户名</strong></label>
+                                                <input type="text" name="nickname" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">请输入密码</strong></label>
+                                                <input type="password" name="password" class="form-control password">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="__token__" value="{:token()}" />
+                                        <div id="sms-login">
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">请输入手机号码</strong></label>
+                                                <input type="text" name="mobile" class="form-control mobile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong class="text-black-50">请输入验证码</strong></label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" name="smscode" class="form-control">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon"><a href="{:url('/user/login/getSmsCode')}" id="sendSms">获取验证码</a></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-check  mt-3">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label text-black-50">记住我</label>
+                                            <label onclick="changingLogin()" class="float-right text-primary sms-login">
+                                                <i class="fa fa-mobile text-primary" aria-hidden="true"></i>
+                                                短信验证登录
+                                            </label>
+                                            <label class="float-right text-primary nickname-login" onclick="changingLogin()">
+                                                <i class="fa fa-user text-primary" aria-hidden="true"></i>
+                                                用户名/手机号登录
+                                            </label>
+                                            <input type="hidden" value="0" name="logintype" class="logintype">
+                                        </div>
+                                        <a href="{:url('/user/login/doLogin')}" class="btn btn-primary btn-block" id="formLogin">登录</a>
+                                    </form>
+                                    <div class="clearfix"></div>
+                                    <div class="forget-password mt-2">
+                                        <p>
+                                            <label class="form-check-label text-black-50">
+                                                <a href="{:url('/user/login/register')}">
+                                                    账号注册
+                                                </a>
+                                            </label>
+                                            <label class="float-right text-black-50" for="exampleCheck1">
+                                                <a href="{:url('/user/login/forget')}">
+                                                    忘记密码
+                                                </a>
+                                            </label>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='../public/footer' /}
+    </div>
+    {include file='../public/script' /}
+    <script src="__TEMPSTATIC__/js/login.js"></script>
+</body>

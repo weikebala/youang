@@ -1,0 +1,25 @@
+.category span {
+    padding: 10px;
+}
+
+.nav .nav-item .active {
+    font-weight: 600;
+    font-size: 16px;
+    color: red;
+    background-color: rgba(242, 13, 13, .06);
+    border-radius: 15px;
+}
+
+
+@media(min-width: 1200px) {
+
+    .list-img-top {
+        height: 100px;
+        width: 100%;
+        border-radius: 15px;
+    }
+}
+
+.col-md-2 {
+    padding-right: 0px;
+}

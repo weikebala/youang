@@ -1,0 +1,136 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid bg-white h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" method="post" action="{$Request.root}/{$Request.controller}/add">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">关联</label>
+                <div class="col-sm-10">
+                    <div class="form-group clearfix">
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="nav_type" value="1" checked id="is-category">
+                            <label for="is-category">
+                                分类
+                            </label>
+                        </div>
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="nav_type" value="2" id="is-link">
+                            <label for="is-link">
+                                自定义链接
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">父级</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" name="parent_id">
+                            <option value="0">无</option>
+                            {volist name="navlist" id="vo"}
+                            <option value="{$vo.id}">{$vo.showName}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" style="display: none;" id="nav-type">
+                <label class="col-sm-2 col-form-label">链接地址</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="url" placeholder="请输入自定义链接地址">
+                </div>
+            </div>
+            <div class="form-group row" id="nav-category">
+                <label class="col-sm-2 col-form-label">关联导航</label>
+                <div class="col-sm-10">
+                    <select class="custom-select select2bs4" name="category_id">
+                        <option value="0">无</option>
+                        {volist name="category" id="vo"}
+                        <option value="{$vo.id}">{$vo.showName}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" placeholder="请输入名称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">排序</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="sort" placeholder="默认为0">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">备注</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="remark" placeholder="请输入备注[选填]">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">显示</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="icheck-success d-inline">
+                            <input type="checkbox" name="show_status" checked id="showStatus">
+                            <label for="showStatus">
+                                是否可用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+    </button>
+    </form>
+</div>
+</div>
+{include file='../public/script' /}
+<script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+$("#is-link").click(function() {
+    $("#nav-type").show();
+    $("#nav-category").hide();
+});
+
+$("#is-category,#isAction").click(function() {
+    $("#nav-type").hide();
+    $("#nav-category").show();
+});
+
+$('#content').validate({
+    rules: {
+        url: {
+            required: true,
+        },
+        title: {
+            required: true,
+        },
+    },
+    messages: {
+        url: {
+            required: "请输入路径",
+        },
+        title: {
+            required: "请输入菜单名称",
+        },
+    },
+    // errorElement: 'span',
+    errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.col-sm-10').append(error);
+    },
+
+});
+
+function myValidate() {
+    var content = $("form").attr("id");
+    var valid = $("#" + content).valid();
+    return valid;
+}
+</script>

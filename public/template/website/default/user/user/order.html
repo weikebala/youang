@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$userinfo.nickname|default=''}的个人中心</title>
+    <meta name="keywords" content="{$site_info.seoKeywords|default=''}" />
+    <meta name="description" content="{$site_info.seoDescription|default=''}">
+    {include file='../public/header' /}
+    <style type="text/css">
+    </style>
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='../public/nav' /}
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 mt-3">
+                            <!-- Profile Image -->
+                            <div class="card card-primary card-outline">
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        {if $userinfo.myself == 1}
+                                        <div id="defaultUpload">
+                                            <a href="javascript:void(0);">
+                                                <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                            </a>
+                                        </div>
+                                        <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','defaultUpload','img_label')" accept="image/*" />
+                                        <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">头像上传</label>
+                                        {else /}
+                                        <img class="profile-user-img img-fluid img-circle" src="{$userinfo.avatar_url ? getUrlPath($userinfo.avatar_url) : '__STATIC__/img/user4-128x128.jpg' }" alt="User profile picture">
+                                        {/if}
+                                    </div>
+                                    <h3 class="profile-username text-center">{$userinfo.nickname}</h3>
+                                    <p class="text-muted text-center">{$userinfo.introduce ? $userinfo.introduce :'这个人懒蛋蛋...'}</p>
+                                    <ul class="list-group list-group-unbordered mb-3">
+                                        <li class="list-group-item">
+                                            <b>经验</b> <a class="float-right">{$userinfo.empirical}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 mt-3">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item"><a class="nav-link" href="{:url('/user/user/centor',['user_id'=>$userinfo.id ])}">足迹</a></li>
+                                        {if $userinfo.myself == 1}
+                                        <li class="nav-item"><a class="nav-link active" href="{:url('/user/user/order',['user_id'=> $userinfo.id ])}">订单</a></li>
+                                        <li class="nav-item"><a class="nav-link " href="{:url('/user/user/setting',['user_id'=>$userinfo.id ])}">设置</a></li>
+                                        {else /}
+                                        {/if}
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <!-- /.tab-pane -->
+                                        <div class="tab-pane active" id="order">
+                                            {notempty name="list"}
+                                            <!-- /.card-header -->
+                                            <ul class="list-unstyled w-100">
+                                                {volist name="list" id="vo"}
+                                                <li class="media col-md-12 col-xs-2">
+                                                    <img class="mr-3 rounded-sm shadow p-3 mb-5 bg-white rounded " src="{$vo.image_url ? getUrlPath($vo.image_url) :'__STATIC__/img/paybg.png'}" alt="{$vo.title}">
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <strong>
+                                                                <span>
+                                                                    <a href="{:url('/course',['id'=>$vo['commodity_id']])}" class="text-dark">{$vo.title}</a>
+                                                                </span>
+                                                            </strong>
+                                                            <span class="text-muted float-right">
+                                                                <small>
+                                                                    创建时间:{$vo.create_time}
+                                                                </small>
+                                                            </span>
+                                                        </p>
+                                                        <p>
+                                                            <small>
+                                                                {$vo.description}
+                                                            </small>
+                                                            <p class="mt-2">
+                                                                {if $vo.order_status}
+                                                                <span class="p-2">
+                                                                    <small class="badge badge-info">已完成</small>
+                                                                </span>
+                                                                {else /}
+                                                                <span class="p-2">
+                                                                    <a class="badge badge-warning" href="{:url('/order/createOrder',['id'=>$vo['id'],'type'=>'order'])}">
+                                                                        ￥{$vo.price} 未付款
+                                                                    </a>
+                                                                </span>
+                                                                {/if}
+                                                                <!-- <span class="col-3 text-muted">创建时间:{$vo.create_time}</span> -->
+                                                                <span class="col-2 text-muted">订单号:{$vo.order_no}</span>
+                                                            </p>
+                                                    </div>
+                                                </li>
+                                                <hr>
+                                                {/volist}
+                                            </ul>
+                                            {else /}
+                                            <div class="media h-100">
+                                                <div class="align-self-center mx-auto text-center">
+                                                    <img src="__STATIC__/img/empty.png">
+                                                    <p>
+                                                        <small class="text-muted">暂无订单消息</small>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            {/notempty}
+                                            <div>
+                                                {$page|raw}
+                                            </div>
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                        <!-- /.tab-pane -->
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div>
+                            </div>
+                            <!-- /.nav-tabs-custom -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='../public/footer' /}
+    </div>
+    {include file='../public/script' /}
+    <script src="__TEMPSTATIC__/js/avatar.js"></script>
+    </script>
+</body>
+
+</html>

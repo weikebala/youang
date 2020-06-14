@@ -1,0 +1,74 @@
+<div class="content-wrapper pre-scrollable">
+    
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="table-toolbar mt-2">
+                        {:checkAuth('add')}
+                        <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
+                            刷新
+                            <i class="fa fa-refresh"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">ID</th>
+                                    <th style="width: 20px">菜单名称</th>
+                                    <th style="width: 10px">路径</th>
+                                    <th style="width: 10px">图标</th>
+                                    <th style="width: 10px">排序</th>
+                                    <th style="width: 10px">状态</th>
+                                    <th style="width: 40px">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="menulist" id="vo"}
+                                <tr>
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.showName}</td>
+                                    <td>{$vo.url}</td>
+                                    <td><i class="fa fa-{$vo.icon}"></i></td>
+                                    <td>{$vo.sort}</td>
+                                    <td>
+                                        {$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}
+                                    </td>
+                                    <td>
+                                        {:checkAuth('edit',$vo.id)}
+                                        {:checkAuth('delete',$vo.id)}
+                                    </td>
+                                </tr>
+                                {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card-footer clearfix">
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

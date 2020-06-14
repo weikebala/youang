@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script type="text/javascript">
+
+
+ws = new WebSocket("ws://127.0.0.01:2346/");
+
+ws.onopen = function() {
+
+	window.setInterval(timeout, 30000); 
+    ws.send(' {"code":201,"mac":"2c:6a:6f:00:67:22"} ');
+
+};
+
+function timeout() {
+	console.log('200000')
+    ws.send(' {"type":"ping"}');
+}
+ws.onmessage = function(e) {
+	console.log(e.data);
+};
+</script>

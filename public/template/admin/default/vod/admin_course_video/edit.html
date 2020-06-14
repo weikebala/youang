@@ -1,0 +1,176 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid bg-white h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/editPost">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所属课程</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" id="courseId" onchange="getSelectChapter()" name="course_id">
+                            <option value="">无</option>
+                            {volist name="courselist" id="vo"}
+                            <option value="{$vo.id}" {$vo.select==1 ? 'selected' :''}>{$vo.title}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所属章节</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" id="chapterId" name="chapter_id">
+                            <option value="">无</option>
+                            {volist name="chapterlist" id="vo"}
+                            <option value="{$vo.id}" {$vo.select==1 ? 'selected' :''}>{$vo.title}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" value="{$editData.title}" placeholder="请输入视频名称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频简介</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="3" name="description" placeholder="请输入视频简介">{$editData.description}</textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO标题</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoTitle" value="{$editData.seoTitle}" placeholder="请输入SEO标题">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO关键字</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoKeywords" value="{$editData.seoKeywords}" placeholder="请输入SEO关键字">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">SEO描述</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="seoDescription" value="{$editData.seoDescription}" placeholder="请输入SEO描述">
+                </div>
+            </div>
+            <div class="form-group display-none">
+                <input type="hidden" name="id" value="{$editData.id}">
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频上传</label>
+                <div class="col-sm-10">
+                    <div class="input-group input-group-lg mb-3">
+                        <div class="input-group-prepend">
+                            <select class="form-control h-100" id="channel" name="channel" style="min-width: 120px;">
+                                <option value="local" {$editData.channel=='local' ? 'selected' :''}>本地上传</option>
+                                <option value="alivod" {$editData.channel=='alivod' ? 'selected' :''}>阿里云上传</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" id="video_url" value="{$editData.video_url}" name="video_url">
+                        <span class="input-group-append">
+                            <input type="file" name="file" id="upload_video" class="display-none" onchange="uploadVideo('video_url','upload_video','video_label')" accept="video/mp4" />
+                            <label for="upload_video" id="video_label" class="btn btn-info btn-flat">
+                                上传
+                            </label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">视频缩略图</label>
+                <div class="col-sm-10">
+                    <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="image/*" />
+                    <input type="hidden" name="image_url" id="image_url" value="{$editData.image_url}">
+                    <div id="preview_image">
+                        <img src="{$editData.image_url ? getUrlPath($editData.image_url) :'__STATIC__/img/user3-128x128.jpg'}">
+                    </div>
+                    <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">缩略图上传
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">备注</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="remark" value="{$editData.remark}" placeholder="请输入备注">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">显示</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="icheck-success d-inline">
+                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''} value="1" id="showStatus">
+                            <label for="showStatus">
+                                是否可用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+            </button>
+        </form>
+    </div>
+</div>
+{include file='../public/script' /}
+<script type="text/javascript">
+function getSelectChapter() {
+
+    var courseId = $('#courseId option:selected').val();
+    if (courseId) {
+        $("#chapterId option:not(:first)").remove();
+    }
+    $.post("/vod/AdminCourseVideo/getChapterList", { course_id: courseId }, function(json) {
+        $.each(json.data, function(i, item) {
+            $("<option></option>").val(item["id"]).text(item["title"]).appendTo($("#chapterId"));
+        });
+    }, "json");
+
+}
+
+$('#content').validate({
+    ignore: [],
+    rules: {
+        course_id: {
+            required: true,
+        },
+        chapter_id: {
+            required: true,
+        },
+        title: {
+            required: true,
+        },
+        vide_url: {
+            required: true,
+        },
+    },
+    messages: {
+        course_id: {
+            required: "请选择课程",
+        },
+        chapter_id: {
+            required: "请选择章节",
+        },
+        title: {
+            required: "请填写标题",
+        },
+        vide_url: {
+            required: "请上传视频",
+        },
+
+    },
+    // errorElement: 'span',
+    errorPlacement: function(error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.col-sm-10').append(error);
+    },
+
+});
+</script>

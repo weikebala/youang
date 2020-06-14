@@ -1,0 +1,127 @@
+<div class="content-wrapper pre-scrollable">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    {:checkAuth('add')}
+                    <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
+                        刷新
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                    <a href="{$Request.root}/{$Request.controller}/{$Request.action}" class="btn btn-primary btn-sm" title="重置">
+                        重置搜索
+                        <i class="fa fa-repeat"></i>
+                    </a>
+                    <div class="card-tools">
+                        <form>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control mr-2" name="search_time" value="123213123" placeholder="请输入时间" id="reservation">
+                                <input type="text" name="keywords" class="form-control float-right" placeholder="请输入关键字">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="10">ID</th>
+                                <th width="10">课程名称</th>
+                                <th width="10">课程简介</th>
+                                <th width="10">封面图片</th>
+                                <th width="10">收费状态</th>
+                                <th width="10">售卖价格</th>
+                                <th width="10">难度级别</th>
+                                <th width="10">备注</th>
+                                <th width="10">状态</th>
+                                <th width="100">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="courslist" id="vo"}
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>
+                                    <a href="{:url('/course',['id'=>$vo['id']])}" target="_blank">
+                                        <strong class="text-muted">
+                                            {$vo.title}
+                                        </strong>
+                                    </a>
+                                </td>
+                                <td><small>{$vo.description}</small></td>
+                                <td> <img src="{$vo.cource_image_url ? getUrlPath($vo.cource_image_url) :'/static/img/user3-128x128.jpg'}" width="30" height="30"></td>
+                                <td>{$vo.sell_status ? '付费' : '免费'}</td>
+                                <td>{$vo.sell_status ? $vo.sell_price : '免费'}</td>
+                                <td>
+                                    {switch $vo.level_status}
+                                    {case 1}
+                                        <span class="badge badge-secondary">初级</span>
+                                    {/case}
+                                    {case 2}
+                                        <span class="badge badge-info">中级</span>
+                                    {/case}
+                                    {default /}
+                                        <span class="badge badge-danger">高级</span>
+                                    {/switch}
+                                </td>
+                                <td>{$vo.remark}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
+                                <td>
+                                    {:checkAuth('edit',$vo.id)}
+                                    {:checkAuth('delete',$vo.id)}
+                                    {if !$vo.hot_status}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'hot_status'=>$vo.hot_status])}" class="btn-dialog" title="设置热门" data-msg='设置热门'>
+                                        <i class="fa fa-fire text-secondary"></i>
+                                        热门
+                                    </a>
+                                    {else /}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'hot_status'=>$vo.hot_status])}" class=" btn-dialog" title="取消热门" data-msg='取消热门'>
+                                        <i class="fa fa-fire text-danger"></i>
+                                        取消
+                                    </a>
+                                    {/if}
+                                    {if !$vo.recommend_status}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'recommend_status'=>$vo.recommend_status])}" class="btn-dialog" title="设置推荐" data-msg='设置推荐'>
+                                        <i class="fa fa-heart text-secondary"></i>
+                                        推荐
+                                    </a>
+                                    {else /}
+                                    <a href="{:url('/vod/AdminCourse/operation',['id'=>$vo.id,'recommend_status'=>$vo.recommend_status])}" class=" btn-dialog" title="取消推荐" data-msg='取消推荐'>
+                                        <i class="fa fa-heart text-danger"></i>
+                                        取消
+                                    </a>
+                                    {/if}
+                                </td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer clearfix">
+                    {$page|raw}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

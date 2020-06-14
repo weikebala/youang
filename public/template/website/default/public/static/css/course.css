@@ -1,0 +1,218 @@
+.course-detail {
+    font-family: sans-serif;
+    line-height: 1;
+    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(5px);
+    width: 100%;
+    min-height: 200px;
+    background-color: rgba(25, 24, 24, 0.9);
+}
+
+.course-info {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 200px;
+}
+
+
+/*面包屑*/
+.breadcrumb {
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+.course-detail .breadcrumb li a {
+    color: #d6c8c8;
+}
+
+.detail-attribute span {
+    margin: 20px;
+}
+
+.course-nav {
+    box-shadow: 0 4px 8px 0 rgba(28, 31, 33, .1);
+}
+
+
+
+/*卡片样式*/
+@media(min-width: 1200px) {
+
+    .course-nav a {
+        font-size: 18px;
+        margin: 15px;
+        font-weight: 600;
+    }
+}
+
+
+/*.course-nav a {
+    font-size: 18px;
+    margin: 15px;
+    font-weight: 600;
+}*/
+
+.detail-price {
+    font-size: 18px;
+    color: #f01414;
+    font-weight: 700;
+}
+
+.card-body {
+    padding: 0.15rem;
+}
+
+.card-body .fa {}
+
+.card-body .list-group-item {
+    border: 0px none;
+}
+
+
+.card-body .list-group-item:hover .fas {
+    color: red;
+}
+
+.course-nav .active {
+    border-bottom: 2px solid red;
+}
+
+.detail-intro img,
+#pills-tab,
+.resources-down {
+    border-radius: 15px;
+    width: 100%;
+}
+
+/*评论*/
+.comment-avatart {
+    /*border-radius: 15px;*/
+    width: 50px;
+    height: 50px;
+}
+
+.comment {
+    padding: 20px 20px 20px 20px;
+}
+
+.comment-list .bg-white {
+    border-radius: 25px;
+}
+
+
+.comment h5 {
+    font-weight: 600;
+}
+
+#player-con {
+    border-radius: 10px 10px 0px 0px;
+}
+
+.chapter {
+    min-height: 60px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.chapter-info {
+    line-height: 60px;
+}
+
+
+/* 定义keyframe动画，命名为blink */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* 添加兼容性前缀 */
+@-webkit-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* 定义blink类*/
+.blink {
+    color: #36ec36;
+    animation: blink 1s linear infinite;
+    /* 其它浏览器兼容性前缀 */
+    -webkit-animation: blink 1s linear infinite;
+    -moz-animation: blink 1s linear infinite;
+    -ms-animation: blink 1s linear infinite;
+    -o-animation: blink 1s linear infinite;
+}
+
+
+/*讲师简介*/
+
+.detail-card {
+    text-align: center;
+}
+
+.course-nav-item {
+    /*padding: 10px 15px;*/
+}
+
+
+@media (max-width: 768px) {
+
+    .chapter-link {
+        display: none;
+    }
+
+    .course-nav a {
+        font-size: 13px;
+        /*margin: 15px;*/
+    }
+}
+
+.aliplayer .breadcrumb li a {
+    color: #6c757d !important
+}
+
+.info-box .ribbon-wrapper {
+    display: none;
+}

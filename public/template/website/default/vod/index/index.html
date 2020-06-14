@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$site_info.seoTitle|default='eduYouke在线教育点播系统'}</title>
+    <meta name="keywords" content="{$site_info.seoKeywords|default='eduYouke在线教育点播系统'}" />
+    <meta name="description" content="{$site_info.seoDescription|default='eduYouke在线教育点播系统'}">
+    {include file='../public/header' /}
+</head>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        {include file='../public/nav' /}
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 h-75">
+                            {include file='../public/slide' /}
+                        </div>
+                    </div>
+                    <h3> <i class="fa fa-bookmark-o text-warning" aria-hidden="true"></i> 精品推荐</h3>
+                    <hr>
+                    <div class="row">
+                        {volist name="recommendcourse" id="vo" key="k"}
+                        <div class="col-md-4">
+                            <div class="card card-widget widget-user wider">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
+                                    </div>
+                                </a>
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="text-black-50 ml-2"> <small>
+                                            {if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
+                                        </small></span>
+                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                    <h3> <i class="fa fa-bookmark-o text-danger" aria-hidden="true"></i> 新上好课</h3>
+                    <hr>
+                    <div class="row">
+                        {volist name="newcourse" id="vo" key="k"}
+                        <div class="col-md-3">
+                            <div class="card card-widget widget-user wider">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
+                                    </div>
+                                </a>
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="text-black-50 ml-2"> <small>{if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
+                                        </small></span>
+                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                    <h3> <i class="fa fa-bookmark-o text-primary" aria-hidden="true"></i> 热门课程</h3>
+                    <hr>
+                    <div class="row">
+                        {volist name="hotcourse" id="vo" key="k"}
+                        <div class="col-md-3">
+                            <div class="card card-widget widget-user wider">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
+                                    </div>
+                                </a>
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="text-black-50 ml-2"> <small>{if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
+                                        </small></span>
+                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                    <h3> <i class="fa fa-bookmark-o text-success" aria-hidden="true"></i> 猜你喜欢</h3>
+                    <hr>
+                    <div class="row">
+                        {volist name="conjecturecourse" id="vo" key="k"}
+                        <div class="col-md-3">
+                            <div class="card card-widget widget-user wider">
+                                <a href="{:url('/course',['id'=>$vo['id']])}">
+                                    <div class="widget-user-header text-white" style="background: url('{$vo.cource_image_url}') center center;">
+                                    </div>
+                                </a>
+                                <div id="course-title">
+                                    <p class="card-text p-2 d-inline-block text-truncate">
+                                        <a href="{:url('/course',['id'=>$vo['id']])}" class="text-muted">
+                                            {$vo.title}
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="text-black-50 ml-2"> <small>{if $vo.sell_status}
+                                            <span class="badge badge-danger">
+                                                ￥{$vo.sell_price}
+                                            </span>
+                                            {else /}
+                                            <span class="badge badge-info">
+                                                免费
+                                            </span>
+                                            {/if}
+                                            <span class="badge badge-secondary">
+                                                {switch $vo.level_status}
+                                                {case 1}初级
+                                                {/case}
+                                                {case 2}中级
+                                                {/case}
+                                                {default /}高级
+                                                {/switch}
+                                            </span>
+                                        </small></span>
+                                    <span class=" float-right text-black-50 mr-2"><small><i class="fa fa-user-o" aria-hidden="true"></i> {$vo.views}</small></span>
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+                <div class="container">
+                    <br>
+                    <h3> <i class="fa fa-link text-muted" aria-hidden="true"></i> 合作伙伴</h3>
+                    <hr>
+                    <div class="row">
+                        {volist name="linklist" id="vo" key="k"}
+                        <div class="col-md-3" id="info-box">
+                            <div class="info-box text-center">
+                                <a href="{$vo.link_url}">
+                                    <img class="rounded-lg imgcolor" src="{:getUrlPath($vo.image_url)}" width="100%" height="80px">
+                                </a>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file='../public/footer' /}
+    </div>
+    {include file='../public/script' /}
+</body>
+
+</html>

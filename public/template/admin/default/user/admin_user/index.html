@@ -1,0 +1,130 @@
+<div class="content-wrapper pre-scrollable">
+    
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="content">
+        <section class="content">
+            <div class="card">
+             <div class="card-header">
+                    {:checkAuth('add')}
+                    <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
+                        刷新
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                    <a href="{$Request.root}/{$Request.controller}/{$Request.action}" class="btn btn-primary btn-sm" title="重置">
+                        重置搜索
+                        <i class="fa fa-repeat"></i>
+                    </a>
+                    <div class="card-tools">
+                        <form>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control mr-2" name="search_time" value="123213123" placeholder="请输入时间" id="reservation">
+                                <input type="text" name="keywords" class="form-control float-right" placeholder="请输入关键字">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="10">ID</th>
+                                    <th width="10">昵称</th>
+                                    <th width="10">头像</th>
+                                    <th width="10">手机号</th>
+                                    <th width="10">邮箱</th>
+                                    <th width="10">性别</th>
+                                    <th width="10">简介</th>
+                                    <th width="10">会员状态</th>
+                                    <th width="10">注册时间</th>
+                                    <th width="10">最后登录时间</th>
+                                    <th width="10">最后登录IP</th>
+                                    <th width="100">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="userlist" id="vo"}
+                                <tr>
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.nickname}</td>
+                                    <td>
+                                        <img src="{$vo.avatar_url ? getUrlPath($vo.avatar_url) :'__STATIC__/img/user3-128x128.jpg'}" width="35" height="35">
+                                    </td>
+                                    <td>{$vo.mobile}</td>
+                                    <td>{$vo.mobile}</td>
+                                    <td>
+                                        {if $vo.sex == 1}
+                                        男
+                                        {elseif $vo.sex == 2}
+                                        女
+                                        {else /}
+                                        保密
+                                        {/if}
+                                    </td>
+                                    <td>{$vo.introduce}</td>
+                                    <td>{$vo.user_status == 1 ? '
+                                        <span class="badge badge-secondary">正常</span>
+                                        ':'<span class="badge badge-warning">拉黑</span>'}</td>
+                                    <td>{$vo.create_time}</td>
+                                    <td>{:date('Y-m-d H:i:s',$vo.last_login_time)}</td>
+                                    <td>{$vo.last_login_ip}</td>
+                                    <td>
+                                        {:checkAuth('edit',$vo.id)}
+                                        {:checkAuth('delete',$vo.id)}
+                                        {if $vo.user_status}
+                                        <a href="{:url('/admin/user/block',['id'=>$vo.id,'user_status'=>$vo.user_status])}" class="btn-dialog" title="拉黑" data-msg='拉黑'>
+                                            <i class="fa fa-lock text-danger"></i>
+                                            拉黑
+                                        </a>
+                                        {else /}
+                                        <a href="{:url('/admin/user/block',['id'=>$vo.id,'user_status'=>$vo.user_status])}" class=" btn-dialog" title="恢复" data-msg='恢复'>
+                                            <i class="fa fa-unlock-alt text-success"></i>
+                                            恢复
+                                        </a>
+                                        {/if}
+                                    </td>
+                                </tr>
+                                {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card-footer clearfix">
+                    {$page|raw}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="__STATIC__/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.pagination').addClass("pagination-sm m-0 float-right");
+    $('.pagination li').addClass("page-item");
+    $('.pagination li span').addClass("page-link");
+    $('.pagination li a').addClass("page-link");
+})
+</script>

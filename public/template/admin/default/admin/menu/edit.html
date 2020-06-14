@@ -1,0 +1,138 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid bg-white h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/editPost">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">菜单</label>
+                <div class="col-sm-10">
+                    <div class="form-group clearfix">
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="menuType" {$editData.type==1 ? 'checked' :'disabled'} value="1" id="ismenu">
+                            <label for="ismenu">
+                                仅作为菜单
+                            </label>
+                        </div>
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="menuType" {$editData.type==2 ? 'checked' :'disabled'} value="2" id="notmenu">
+                            <label for="notmenu">
+                                可访问菜单
+                            </label>
+                        </div>
+                        <div class="icheck-success d-inline">
+                            <input type="radio" name="menuType" {$editData.type==3 ? 'checked' :'disabled'} value="3" id="isAction">
+                            <label for="isAction">
+                                操作权限
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">父级</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="custom-select select2bs4" name="parent_id">
+                            {if $editData.parent_id == 0 }
+                            <option value="0" selected>无</option>
+                            {else /}
+                            {volist name="menulist" id="vo"}
+                            <option value="{$vo.id}" {$vo.id==$editData.parent_id ? 'selected' :''}>{$vo.showName}</option>
+                            {/volist}
+                            {/if}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="title" value="{$editData.title}" placeholder="请输入名称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">路径</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="url" value="{$editData.url}" placeholder="App/Controller/Action">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">图标</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="icon" value="{$editData.icon}" placeholder="cogs">
+                    <small id="emailHelp" class="form-text text-muted"><a href="http://www.fontawesome.com.cn/faicons/" target="_blank">获取图标</a></small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">排序</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="sort" value="{$editData.sort}" placeholder="默认为0">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">备注</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="remark" value="{$editData.remark}" placeholder="请输入备注[选填]">
+                </div>
+            </div>
+            <div class="form-group display-none" >
+                <input type="hidden" name="id" value="{$editData.id}">
+            </div>
+            <div class="form-group row {$editData.type==2 ? '' :'display-none'} " id="rbacAction">
+                <label class="col-sm-2 col-form-label">权限细化</label>
+                <div class="col-sm-10">
+                    <div class="icheck-success d-inline">
+                        <input type="checkbox" name="rbac_add" {$actionCheck.add ? 'checked' :''} id="rbacAdd">
+                        <label for="rbacAdd">
+                            增加
+                        </label>
+                    </div>
+                    <div class="icheck-success d-inline">
+                        <input type="checkbox" name="rbac_del" {$actionCheck.del ? 'checked' :''} id="rbacDel">
+                        <label for="rbacDel">
+                            删除
+                        </label>
+                    </div>
+                    <div class="icheck-success d-inline">
+                        <input type="checkbox" name="rbac_edit" {$actionCheck.edit ? 'checked' :''} id="rbacEdit">
+                        <label for="rbacEdit">
+                            修改
+                        </label>
+                    </div>
+                    <small id="emailHelp" class="form-text text-muted">对应后台控制器:{add/edit/del/info}</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">显示</label>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="icheck-success d-inline">
+                            <input type="checkbox" name="show_status" {$editData.show_status==1 ? 'checked' :''} id="showStatus">
+                            <label for="showStatus">
+                                是否可用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+        
+    </button>
+    </form>
+</div>
+</div>
+{include file='../public/script' /}
+<script src="__STATIC__/js/jquery.validate.min.js"></script>
+<script src="__ADMINSTATIC__/js/validate/menuValidate.js"></script>
+
+<script type="text/javascript">
+$("#notmenu").click(function() {
+    $("#rbacAction").show();
+});
+
+$("#ismenu,#isAction").click(function() {
+    $("#rbacAction").hide();
+});
+</script>

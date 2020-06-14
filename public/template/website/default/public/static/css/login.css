@@ -1,0 +1,91 @@
+.login {
+    width: 100%;
+    min-height: 500px;
+}
+
+.login-img img{
+    width: 100%;
+    min-height: 500px;
+    max-height: 500px;
+}
+/*@media(min-width: 1200px) {
+
+ 
+
+}*/
+.login .align-self-center {
+    min-width: 280px;
+}
+
+.text-with-hr {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+
+/*
+横线，并通过z-index：-1将or附近的横线遮盖住
+*/
+.text-with-hr:before {
+    position: absolute;
+    content: '';
+    top: 20px;
+    left: 0px;
+    width: 100%;
+    border-bottom: 1px solid #d4d4d4;
+    z-index: -1;
+}
+
+.text-with-hr span {
+    display: inline-block;
+    background: white;
+    padding: 10px;
+}
+.other-login img{
+    width: 60px;
+    height: 60px;
+}
+.other-login-img{
+    padding: 10px 10px;
+}
+
+
+
+.login{
+    padding: 0 0 0 0;
+}
+
+.login-test{
+    height: 300px;
+    background-color: red;
+    padding: 0 0 0 0;
+}
+
+.login-tests{
+    height: 300px;
+    background-color: #ccc;
+    padding: 0 0 0 0;
+}
+
+/*获取验证码不可点击*/
+.sms-second{
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
+#sms-login , .nickname-login{
+    display: none;
+}
+
+#content .form-group{
+    max-width: 280px;
+}
+
+@media (max-width: 768px) {
+
+    #login-image{
+        display: none;
+    }
+}

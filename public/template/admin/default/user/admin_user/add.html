@@ -1,0 +1,49 @@
+{__NOLAYOUT__}
+{include file='../public/header' /}
+<div class="container-fluid bg-white h-100 table-responsive ">
+    <br>
+    <div class="row">
+        <form class="m-auto w-75" id="content" action="{$Request.root}/{$Request.controller}/addPost">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">昵称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="nickname" placeholder="请输入用户昵称">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" placeholder="请输入用户密码">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">手机号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="mobile" placeholder="请输入用户手机号">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">头像上传</label>
+                <div class="col-sm-10">
+                    <input id="img_upload" type="file" onchange="uploadImg('image_url','img_upload','preview_image','img_label')" accept="image/*" />
+                    <input type="hidden" name="avatar_url" id="image_url" value="">
+                    <div id="preview_image">
+                        <img src="">
+                    </div>
+                    <label for="img_upload" class="btn btn-warning btn-sm mt-2" id="img_label">图片上传
+                    </label>
+                        <!-- <small class="form-text text-muted mb-2">推荐900X400</small> -->
+
+                </div>
+            </div>
+
+    </div>
+    <button class="sub-bindbtn" id="{:config('app.app_debug') ? 'debug':'nodebug'}" lay-submit lay-filter="bind">
+    </button>
+    </form>
+</div>
+</div>
+{include file='../public/script' /}
+<script src="__ADMINSTATIC__/js/validate/userValidate.js"></script>

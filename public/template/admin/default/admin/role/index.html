@@ -1,0 +1,82 @@
+<div class="content-wrapper pre-scrollable">
+    
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">
+                        <i class="fa fa-{$contentHeader.icon}"></i>
+                        {$contentHeader.title}
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin">首页</a></li>
+                        <li class="breadcrumb-item active">{$contentHeader.title}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="content">
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="table-toolbar mt-2">
+                        {:checkAuth('add')}
+                        <a href="javascript:;" class="btn btn-primary btn-sm btn-refresh" title="刷新">
+                            刷新
+                            <i class="fa fa-refresh"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">ID</th>
+                                <th style="width: 20px">角色组名称</th>
+                                <th style="width: 10px">备注</th>
+                                <th style="width: 10px">状态</th>
+                                <th style="width: 40px">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="rolelist" id="vo"}
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.role_name}</td>
+                                <td>{$vo.remark}</td>
+                                <td>{$vo.show_status ? '<i class="fa fa-circle text-primary">&nbsp;正常</i>' : '<i class="fa fa-circle text-warning"> &nbsp;不可用</i>'}</td>
+                                <td>
+                                    {:checkAuth('edit',$vo.id)}
+                                    {:checkAuth('delete',$vo.id)}
+                                    <a href="{$Request.root}/{$Request.controller}/tree/id/{$vo.id}" class="btn-auth" title="权限分配">
+                                        <i class="fa fa-sitemap text-info"></i> 权限分配
+                                    </a>
+                                </td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="card-footer clearfix">
+                    {$page|raw}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="__STATIC__/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.pagination').addClass("pagination-sm m-0 float-right");
+        $('.pagination li').addClass("page-item");
+        $('.pagination li span').addClass("page-link");
+        $('.pagination li a').addClass("page-link");
+    })
+</script>
